@@ -4,6 +4,7 @@ using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
+
 namespace ChandigarhPortal.Controllers
 {
     public class HomeController : Controller
@@ -28,7 +29,7 @@ namespace ChandigarhPortal.Controllers
             bool res = false;
             if (lg != null)
             {
-                res = new UsersController().AuthenticateUser(lg);
+                res = new ChandigarhPortalAPI.Controllers.UsersController().AuthenticateUser(lg);
                 if (res)
                 {
                     //if (new LoginController().is(lg))

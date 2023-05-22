@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ChandigarhPortalAPI.Controllers
+namespace 
+
 {
     [Route("api/[controller]")]
     [ApiController]
