@@ -12,13 +12,27 @@ namespace ChandigarhPortalAPI.Controllers
         public bool AuthenticateUser(Login login)
         {
             Login lg = new Login();
-            lg = db.Logins.ToList().Where(p => p.Email == login.Email && p.Password == login.Password).FirstOrDefault();
+            lg = db.Logins.ToList().Where(p => p.Email == login.Email && p.Password == login.Password && p.IsActive == true).FirstOrDefault();
 
             if (lg.Email != null )
             {
                 return true;
             }
             return false;
+        }
+
+        public bool IsAdmin(Login login)
+        {
+            Login lg = new Login();
+            lg = db.Logins.ToList().Where(p => p.Email == login.Email && p.Password == login.Password && p.IsActive == true).FirstOrDefault();
+            if (lg.RoleId == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
