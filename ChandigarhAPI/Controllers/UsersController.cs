@@ -6,7 +6,7 @@ namespace ChandigarhPortalAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LoginController : ControllerBase
+    public class UsersController : ControllerBase
     {
         ChandigarhEstatesContext db = new ChandigarhEstatesContext();
         public bool AuthenticateUser(Login login)
@@ -21,7 +21,7 @@ namespace ChandigarhPortalAPI.Controllers
             return false;
         }
 
-        public bool IsAdmin(Login login)
+        public bool IsAdministrator(Login login)
         {
             Login lg = new Login();
             lg = db.Logins.ToList().Where(p => p.Email == login.Email && p.Password == login.Password && p.IsActive == true).FirstOrDefault();

@@ -28,12 +28,12 @@ namespace ChandigarhPortal.Controllers
             bool res = false;
             if (lg != null)
             {
-                res = new LoginController().AuthenticateUser(lg);
+                res = new UsersController().AuthenticateUser(lg);
                 if (res)
                 {
-                    if (new LoginController().IsAdmin(lg))
+                    //if (new LoginController().is(lg))
                     {
-
+                        return RedirectToAction("Admin", "Admin");
                     }
                     return RedirectToAction("HomePage", "Home");
                 }

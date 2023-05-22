@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ChandigarhAPI\ChandigarhAPI.csproj" />
     <ProjectReference Include="..\ChandigarhPortalAPI\ChandigarhPortalAPI.csproj" />
     <ProjectReference Include="..\Entities\Entities.csproj" />
   </ItemGroup>
