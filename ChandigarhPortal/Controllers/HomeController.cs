@@ -1,7 +1,9 @@
 ﻿using ChandigarhPortal.Models;
+using ChandigarhPortalAPI.Controllers;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+
 
 namespace ChandigarhPortal.Controllers
 {
@@ -12,43 +14,45 @@ namespace ChandigarhPortal.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            return View(new Login());
         }
 
-       
-
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Index(Login objUser)
+        public IActionResult Index(Login lg)
         {
-            if (ModelState.IsValid)
+            bool res = false;
+            if (lg != null)
             {
-                var obj = new ChandigarhAPI.Controllers.UsersController().AutheticateUser(objUser);
-                if (obj != null && obj.RoleId == 1)
+                res = new ChandigarhPortalAPI.Controllers.UsersController().AuthenticateUser(lg);
+                if (res)
                 {
-                    return RedirectToAction();
+                    //if (new LoginController().is(lg))
+                    {
+                        return RedirectToAction("Admin", "Admin");
+                    }
+                    return RedirectToAction("HomePage", "Home");
                 }
                 else
                 {
-
+                    return RedirectToAction("Index", "Home");
                 }
-                //using (DB_Entities db = new DB_Entities())
-                //{
-                //    var obj = db.UserProfiles.Where(a => a.UserName.Equals(objUser.UserName) && a.Password.Equals(objUser.Password)).FirstOrDefault();
-                //    if (obj != null)
-                //    {
-                //        Session["UserID"] = obj.UserId.ToString();
-                //        Session["UserName"] = obj.UserName.ToString();
-                //        return RedirectToAction("UserDashBoard");
-                //    }
-                //}
             }
-            return View(objUser);
+            return RedirectToAction("Index", "Home");  
+        }
+
+        public IActionResult Home()
+        {
+            return View();
+        }
+        public IActionResult Privacy()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

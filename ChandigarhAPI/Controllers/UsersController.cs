@@ -2,20 +2,38 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ChandigarhAPI.Controllers
+namespace 
+
 {
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
         ChandigarhEstatesContext db = new ChandigarhEstatesContext();
-        public Login AutheticateUser(Login login)
+        public bool AuthenticateUser(Login login)
         {
-            Login result = db.Logins.Where(p => p.Email == login.Email 
-                && p.Password == login.Password && p.IsActive == login.IsActive).FirstOrDefault();
+            Login lg = new Login();
+            lg = db.Logins.ToList().Where(p => p.Email == login.Email && p.Password == login.Password && p.IsActive == true).FirstOrDefault();
 
-            return result;
+            if (lg.Email != null )
+            {
+                return true;
+            }
+            return false;
         }
 
+        public bool IsAdministrator(Login login)
+        {
+            Login lg = new Login();
+            lg = db.Logins.ToList().Where(p => p.Email == login.Email && p.Password == login.Password && p.IsActive == true).FirstOrDefault();
+            if (lg.RoleId == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
